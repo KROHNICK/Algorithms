@@ -3,14 +3,19 @@ import argparse
 
 
 def find_max_profit(prices):
-    max_profit = -99999
-    for i in range(len(prices)-1):
-        for j in range(i+1, len(prices)):
-            if prices[j]-prices[i] > max_profit:
-                max_profit = prices[j]-prices[i]
-        return max_profit
+    largest_gain = prices[1] - prices[0]
 
-    pass
+    i = 0
+    while i < len(prices)-1:
+        largest_successor = prices[i+1]
+        for price in prices[i+1:]:
+            if price > largest_successor:
+                largest_successor = price
+        temp_largest_gain = largest_successor - prices[i]
+        if largest_gain < temp_largest_gain:
+            largest_gain = temp_largest_gain
+        i += 1
+    return largest_gain
 
 
 if __name__ == '__main__':
